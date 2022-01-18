@@ -11,6 +11,7 @@ import shapePattern from 'assets/shape-pattern1.png';
 
 import Smart from 'assets/services/smart.svg';
 import Secure from 'assets/services/secure.svg';
+import feature from "./feature";
 
 const data = {
   subTitle: 'our services',
@@ -36,6 +37,7 @@ const data = {
 };
 
 export default function ServiceSection() {
+  const [videoOpen, setVideoOpen] = useState(false);
   const handleClick = (e) => {
     e.preventDefalut();
     setVideoOpen(true)
@@ -48,7 +50,7 @@ export default function ServiceSection() {
           <Button
             sx={styles.videoBtn}
             // onClick={handleClick}
-            aria-lable="Play Button"
+            aria-label="Play Button"
           >
             <span>
                 <IoIosPlay />
@@ -60,8 +62,25 @@ export default function ServiceSection() {
         </Box>
         <Box sx={styles.contentBox}>
             <TextFeature subTitle={data.subTitle} title={data.title}/>
+            <Grid sx="styles.grid">
+              {data.features.map((feature)=> (
+                  <Box sx={styles.card} key={feature.id}>
+                    <Image src={feature.imgSrc} alt={feature.altText} sx={styles.icon}/>
+                    <Box sx={styles.wrapper}>
+                      <Heading sx={styles.wrapper.title}>{feature.title}</Heading>
+                      <Text sx={styles.wrapper.subTitle}>{feature.text}</Text>
+                    </Box>
+                  </Box>
+              ))}
+            </Grid>
         </Box>
       </Container>
+      <ModalVideo
+        channel="youtube"
+        isOpen={videoOpen}
+        videoId="POUl8dZa1L8"
+        onClose={() => setVideoOpen(false)}
+      />
     </section>
   );
 }
